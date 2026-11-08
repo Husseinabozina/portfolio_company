@@ -35,7 +35,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--ink);color:var(--paper);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 :focus-visible{outline:2px solid var(--saffron);outline-offset:3px;border-radius:6px}
@@ -89,18 +89,24 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opa
 .lede strong{color:var(--paper);font-weight:600}
 .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
 
-/* phones */
-.phones{position:relative;height:560px;perspective:1400px}
-.phone{position:absolute;top:50%;left:50%;width:232px;aspect-ratio:9/19.3;border-radius:38px;padding:8px;background:linear-gradient(160deg,#2a2f3a,#0d0f13);box-shadow:0 40px 80px -20px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,255,255,.08);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
-.phone img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:31px;background:#fff}
-.phone::before{content:"";position:absolute;top:15px;left:50%;translate:-50% 0;width:70px;height:20px;border-radius:20px;background:#0a0c10;z-index:2}
-.p1{transform:translate(-50%,-50%) translate(-120px,30px) rotate(-9deg) scale(.9)}
-.p2{transform:translate(-50%,-50%) translate(0,-10px);z-index:2}
-.p3{transform:translate(-50%,-50%) translate(120px,30px) rotate(9deg) scale(.9)}
-.phones .tag{position:absolute;z-index:3;padding:8px 12px;border-radius:12px;background:rgba(18,21,27,.85);backdrop-filter:blur(8px);border:1px solid var(--line);font-size:13px;white-space:nowrap}
-.phones .tag b{color:var(--saffron);font-weight:600}
-.t1{left:2%;top:16%}.t2{right:0;bottom:16%}
-.t1 .ar{font-family:var(--arabic);font-weight:600}
+/* devices: each screenshot keeps its own ratio and the frame wraps it, so nothing is cropped,
+   stretched or covered. Screens already contain their own status bar and camera cut-out. */
+.device{--w:232px;position:relative;width:var(--w);padding:calc(var(--w)*.034);border-radius:calc(var(--w)*.165);background:#050608;
+  box-shadow:0 44px 80px -26px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.05),inset 0 0 0 calc(var(--w)*.014) #2b303a,inset 0 1px 0 calc(var(--w)*.014) rgba(255,255,255,.08)}
+.device img{width:100%;height:auto;border-radius:calc(var(--w)*.131);background:#fff}
+.device::before,.device::after{content:"";position:absolute;width:3px;border-radius:2px;background:linear-gradient(90deg,#1c1f25,#3a3f4a)}
+.device::before{left:-2px;top:20%;height:calc(var(--w)*.17);box-shadow:0 calc(var(--w)*.23) 0 #2b303a}
+.device::after{right:-2px;top:27%;height:calc(var(--w)*.27);background:linear-gradient(90deg,#3a3f4a,#1c1f25)}
+.hero-vis{display:flex;flex-direction:column;align-items:center;gap:22px}
+.phones{--pw:min(236px,17vw);position:relative;width:100%;height:calc(var(--pw)*2.5)}
+.phones .device{--w:var(--pw);position:absolute;top:50%;left:50%;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.p1{transform:translate(-50%,-50%) translate(calc(var(--pw)*-.58),calc(var(--pw)*.14)) rotate(-8deg) scale(.84)}
+.p2{transform:translate(-50%,-50%) translateY(calc(var(--pw)*-.04));z-index:2}
+.p3{transform:translate(-50%,-50%) translate(calc(var(--pw)*.58),calc(var(--pw)*.14)) rotate(8deg) scale(.84)}
+.phone-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.phone-tags > span{padding:8px 13px;border-radius:12px;background:rgba(18,21,27,.85);border:1px solid var(--line);font-size:13px;white-space:nowrap}
+.phone-tags b{color:var(--saffron);font-weight:600}
+.phone-tags .ar{font-family:var(--arabic);font-weight:600}
 
 /* stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:70px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -156,8 +162,8 @@ section{position:relative}
 .case-link:hover{border-color:var(--saffron);gap:12px}
 .case-vis{position:relative;display:grid;place-items:center;overflow:hidden;background:radial-gradient(70% 70% at 50% 40%,var(--tint,rgba(242,169,59,.18)),transparent 70%),#0d1015;border-left:1px solid var(--line)}
 .case-vis .pair{display:flex;gap:18px;align-items:center}
-.case-vis .phone{position:relative;top:auto;left:auto;width:200px;transform:none}
-.case-vis .phone:nth-child(2){translate:0 40px}
+.case-vis .device{--w:200px}
+.case-vis .device:nth-child(2){translate:0 40px}
 .case-vis .num{position:absolute;left:24px;bottom:14px;font-family:var(--display);font-weight:800;font-size:120px;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(236,231,222,.09)}
 
 /* more work rail */
@@ -170,9 +176,9 @@ section{position:relative}
 .rail.drag{cursor:grabbing;scroll-snap-type:none}
 .tile{scroll-snap-align:start;border:1px solid var(--line);border-radius:22px;background:var(--glass);overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s,transform .4s cubic-bezier(.2,.8,.2,1)}
 .tile:hover{border-color:#3a4150;transform:translateY(-4px)}
-.tile .shot{height:300px;overflow:hidden;background:#0d1015;display:grid;place-items:end center;padding-top:24px}
-.tile .shot img{width:68%;border-radius:20px 20px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,.5);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
-.tile:hover .shot img{transform:translateY(-10px)}
+.tile .shot{height:300px;overflow:hidden;background:radial-gradient(80% 70% at 50% 100%,rgba(242,169,59,.10),transparent 70%),#0d1015;display:flex;justify-content:center;align-items:flex-start;padding-top:28px;border-bottom:1px solid var(--line)}
+.tile .shot .device{--w:168px;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.tile:hover .shot .device{transform:translateY(-10px)}
 .tile .body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
 .tile h4{font-family:var(--display);font-size:22px;font-weight:700;font-variation-settings:"wdth" 88}
 .tile p{font-size:14.5px;color:var(--dim);line-height:1.5}
@@ -240,9 +246,9 @@ section{position:relative}
 .mail a.addr:hover{border-color:var(--saffron)}
 .copy{height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line);font-size:14px;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s}
 .copy:hover{border-color:var(--saffron)}
-.links{display:grid;grid-template-columns:repeat(4,1fr);margin-top:70px;border-top:1px solid var(--line)}
-.links a{padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line);font-size:17px;transition:color .2s,padding .3s}
-.links a+a{padding-left:22px;border-left:1px solid var(--line)}
+.links{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:70px}
+.links a{padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.015);font-size:17px;transition:color .2s,border-color .2s,background .2s}
+.links a:hover{border-color:rgba(242,169,59,.45);background:rgba(242,169,59,.06)}
 .links a span{color:var(--dim);transition:transform .3s,color .2s}
 .links a:hover{color:var(--saffron)}
 .links a:hover span{transform:translate(3px,-3px);color:var(--saffron)}
@@ -269,8 +275,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .js.load .p1{animation:fanL 1.3s .35s cubic-bezier(.2,.8,.2,1) both}
 .js.load .p2{animation:fanC 1.3s .2s cubic-bezier(.2,.8,.2,1) both}
 .js.load .p3{animation:fanR 1.3s .5s cubic-bezier(.2,.8,.2,1) both}
-.js.load .phones .tag{animation:settle .9s 1.1s cubic-bezier(.2,.8,.2,1) both}
-.js.load .phones .t2{animation-delay:1.25s}
+.js.load .phone-tags{animation:settle .9s 1.1s cubic-bezier(.2,.8,.2,1) both}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
@@ -280,8 +285,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:1020px){
   .hero-grid{grid-template-columns:1fr}
-  .phones{height:470px;margin-top:10px}
-  .phone{width:200px}
+  .phones{--pw:min(236px,40vw);margin-top:10px}
   .case{grid-template-columns:1fr;position:relative;top:auto;min-height:0}
   .case-vis{border-left:0;border-top:1px solid var(--line);padding:40px 0 70px}
   .steps{grid-template-columns:repeat(3,1fr);row-gap:44px}
@@ -301,23 +305,19 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
   .brief div{border-right:0!important;border-bottom:1px solid var(--line)!important}
   .brief div:last-child{border-bottom:0!important}
   .case-copy{padding:30px 24px}
-  .case-vis .phone{width:128px}
+  .case-vis .device{--w:min(150px,37vw)}
   .case-vis .pair{gap:12px}
-  .t1{left:0;top:8%}
   .steps{grid-template-columns:1fr 1fr}
   .ai-note{grid-template-columns:1fr;gap:12px;padding:26px}
   .job{grid-template-columns:1fr;gap:12px}
   .links{grid-template-columns:1fr 1fr}
-  .links a:nth-child(3){padding-left:0;border-left:0}
   .facts{grid-template-columns:1fr}
   .nav .btn span{display:none}
 }
 @media (max-width:420px){
-  .phones{height:400px}
-  .phone{width:168px}
-  .p1{transform:translate(-50%,-50%) translate(-88px,26px) rotate(-9deg) scale(.88)}
-  .p3{transform:translate(-50%,-50%) translate(88px,26px) rotate(9deg) scale(.88)}
-  .phones .tag{font-size:12px}
+  .phones{--pw:42vw}
+  .phone-tags > span{font-size:12px}
+  .links{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr}
 }
 </style>
@@ -366,12 +366,13 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           <button class="btn btn-ghost magnet" type="button" data-copy="husseinabozina22@gmail.com">Copy email</button>
         </div>
       </div>
-      <div class="phones" id="phones" aria-label="Screens from three of Hussein's apps">
-        <figure class="phone p1" data-depth="18"><img src="assets/img/overdeal-1.webp" alt="OverDeal, published client app: discovery screen in Arabic" width="401" height="949"></figure>
-        <figure class="phone p2" data-depth="34"><img src="assets/img/miao-1.webp" alt="miao app home screen showing cat listings in Arabic" width="520" height="1158"></figure>
-        <figure class="phone p3" data-depth="22"><img src="assets/img/mahami-1.webp" alt="Mahami native Android task manager home screen" width="520" height="1158"></figure>
-        <div class="tag t1" data-depth="48"><b>RTL</b> · <span class="ar">عربي</span> / English</div>
-        <div class="tag t2" data-depth="40"><b>Flutter</b> · SwiftUI · Compose</div>
+      <div class="hero-vis">
+        <div class="phones" id="phones" aria-label="Screens from three of Hussein's apps">
+          <figure class="device p1" data-depth="18"><img src="assets/img/myshop-onboarding.webp" alt="MyShop onboarding screen: Find your next favourite" width="520" height="1131"></figure>
+          <figure class="device p2" data-depth="34"><img src="assets/img/nova-home.webp" alt="NOVA fashion commerce app home screen with the Drop 026 banner" width="600" height="1304"></figure>
+          <figure class="device p3" data-depth="22"><img src="assets/img/etzan-onboarding.webp" alt="Etzan Arabic onboarding screen" width="520" height="1125"></figure>
+        </div>
+        <div class="phone-tags"><span><b>RTL</b> · <span class="ar">عربي</span> / English</span><span><b>Flutter</b> · SwiftUI · Compose</span></div>
       </div>
     </div>
 
@@ -445,8 +446,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
         <div class="case-vis" style="--tint:rgba(80,190,170,.22)">
           <span class="num" aria-hidden="true">01</span>
           <div class="pair">
-            <figure class="phone"><img src="assets/img/overdeal-1.webp" alt="OverDeal discovery screen" loading="lazy" width="401" height="949"></figure>
-            <figure class="phone"><img src="assets/img/overdeal-2.webp" alt="OverDeal account screen" loading="lazy" width="390" height="939"></figure>
+            <figure class="device"><img src="assets/img/overdeal-1.webp" alt="OverDeal discovery screen" loading="lazy" width="401" height="949"></figure>
+            <figure class="device"><img src="assets/img/overdeal-2.webp" alt="OverDeal account screen" loading="lazy" width="390" height="939"></figure>
           </div>
         </div>
       </article>
@@ -468,8 +469,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
         <div class="case-vis" style="--tint:rgba(242,169,59,.22)">
           <span class="num" aria-hidden="true">02</span>
           <div class="pair">
-            <figure class="phone"><img src="assets/img/miao-1.webp" alt="miao home with cat listings" loading="lazy" width="520" height="1158"></figure>
-            <figure class="phone"><img src="assets/img/miao-2.webp" alt="miao missing-cat map" loading="lazy" width="520" height="1158"></figure>
+            <figure class="device"><img src="assets/img/miao-1.webp" alt="miao home with cat listings" loading="lazy" width="520" height="1158"></figure>
+            <figure class="device"><img src="assets/img/miao-2.webp" alt="miao missing-cat map" loading="lazy" width="520" height="1158"></figure>
           </div>
         </div>
       </article>
@@ -491,8 +492,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
         <div class="case-vis" style="--tint:rgba(150,120,255,.22)">
           <span class="num" aria-hidden="true">03</span>
           <div class="pair">
-            <figure class="phone"><img src="assets/img/mahami-1.webp" alt="Mahami home screen" loading="lazy" width="520" height="1158"></figure>
-            <figure class="phone"><img src="assets/img/mahami-2.webp" alt="Mahami tasks screen" loading="lazy" width="520" height="1158"></figure>
+            <figure class="device"><img src="assets/img/mahami-1.webp" alt="Mahami home screen" loading="lazy" width="520" height="1158"></figure>
+            <figure class="device"><img src="assets/img/mahami-2.webp" alt="Mahami tasks screen" loading="lazy" width="520" height="1158"></figure>
           </div>
         </div>
       </article>
@@ -506,32 +507,36 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       </div>
     </div>
     <div class="rail" id="rail" tabindex="0" aria-label="More apps, scroll horizontally">
+      <a class="tile" href="https://github.com/Husseinabozina/fashion_e_commerce" target="_blank" rel="noopener">
+        <div class="shot"><figure class="device"><img src="assets/img/nova-discover.webp" alt="NOVA discover screen" loading="lazy" width="520" height="1131"></figure></div>
+        <div class="body"><h4>NOVA</h4><p>Fashion commerce with discovery, product variants, wishlist, bag, checkout and MyFatoorah sandbox payments.</p><span class="meta">FLUTTER · FIREBASE · PUBLIC SOURCE</span></div>
+      </a>
       <a class="tile" href="https://husseinabozina.github.io/app-showroom/projects/myshop/" target="_blank" rel="noopener">
-        <div class="shot"><img src="assets/img/myshop.webp" alt="MyShop storefront" loading="lazy" width="520" height="1131"></div>
+        <div class="shot"><figure class="device"><img src="assets/img/myshop.webp" alt="MyShop storefront" loading="lazy" width="520" height="1131"></figure></div>
         <div class="body"><h4>MyShop</h4><p>Product discovery, saved baskets and addresses, sandbox checkout and order history, with payment-state recovery.</p><span class="meta">FLUTTER · FIREBASE REST · PAYMENTS</span></div>
       </a>
       <a class="tile" href="https://husseinabozina.github.io/app-showroom/projects/etzan/" target="_blank" rel="noopener">
-        <div class="shot"><img src="assets/img/etzan.webp" alt="Etzan Arabic home" loading="lazy" width="520" height="1125"></div>
+        <div class="shot"><figure class="device"><img src="assets/img/etzan.webp" alt="Etzan Arabic home" loading="lazy" width="520" height="1125"></figure></div>
         <div class="body"><h4>Etzan · اتزان</h4><p>Coach discovery, goals, daily habits and progress tracking in one Arabic-first journey.</p><span class="meta">FLUTTER · SUPABASE</span></div>
       </a>
       <div class="tile">
-        <div class="shot"><img src="assets/img/qurani.webp" alt="Qurani prayer times home" loading="lazy" width="520" height="1158"></div>
+        <div class="shot"><figure class="device"><img src="assets/img/qurani.webp" alt="Qurani prayer times home" loading="lazy" width="520" height="1158"></figure></div>
         <div class="body"><h4>Qurani · قرآني</h4><p>Prayer times with a live countdown, Quran reading, adhkar, tasbih and a Qibla compass.</p><span class="meta">FLUTTER · LOCATION · APK AVAILABLE</span></div>
       </div>
       <div class="tile">
-        <div class="shot"><img src="assets/img/lamsa.webp" alt="Lamsa Latifa booking form" loading="lazy" width="502" height="1013"></div>
+        <div class="shot"><figure class="device"><img src="assets/img/lamsa.webp" alt="Lamsa Latifa booking form" loading="lazy" width="502" height="1013"></figure></div>
         <div class="body"><h4>Lamsa Latifa</h4><p>Beauty services booking: category, service, date, time and address in one continuous flow.</p><span class="meta">CLIENT WORK · FLUTTER · BOOKING</span></div>
       </div>
       <div class="tile">
-        <div class="shot"><img src="assets/img/jabhamaeak.webp" alt="Jabhamaeak upcoming trips" loading="lazy" width="488" height="1074"></div>
+        <div class="shot"><figure class="device"><img src="assets/img/jabhamaeak.webp" alt="Jabhamaeak upcoming trips" loading="lazy" width="488" height="1074"></figure></div>
         <div class="body"><h4>Jabhamaeak</h4><p>City-to-city trips and delivery requests, with vehicle details, wallet and profile.</p><span class="meta">CLIENT WORK · FLUTTER · TRIPS</span></div>
       </div>
       <a class="tile" href="https://github.com/Husseinabozina/Brees-Mobile-App" target="_blank" rel="noopener">
-        <div class="shot"><img src="assets/img/brees.webp" alt="Brees finance dashboard" loading="lazy" width="375" height="812"></div>
+        <div class="shot"><figure class="device"><img src="assets/img/brees.webp" alt="Brees finance dashboard" loading="lazy" width="375" height="812"></figure></div>
         <div class="body"><h4>Brees</h4><p>A 60-state personal finance journey with Clean Architecture, motion, automated visual QA and CI.</p><span class="meta">FLUTTER · CI · PUBLIC SOURCE</span></div>
       </a>
       <a class="tile" href="https://github.com/Husseinabozina/medical_app" target="_blank" rel="noopener">
-        <div class="shot"><img src="assets/img/healthtrack.webp" alt="HealthTrack specialties screen" loading="lazy" width="360" height="896"></div>
+        <div class="shot"><figure class="device"><img src="assets/img/healthtrack.webp" alt="HealthTrack specialties screen" loading="lazy" width="360" height="896"></figure></div>
         <div class="body"><h4>HealthTrack</h4><p>A connected care journey from specialty to doctor to booking, with a separated data layer.</p><span class="meta">FLUTTER · PUBLIC SOURCE</span></div>
       </a>
       <a class="tile cta" href="https://husseinabozina.github.io/app-showroom/" target="_blank" rel="noopener">
