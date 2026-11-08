@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hussein Abozina · Mobile Engineer</title>
-<meta name="description" content="Hussein Abozina, AI-native Mobile Software Engineer (Flutter, iOS, Android). Spec-driven, context-engineered AI workflows. 5 years with Flutter, 20+ apps across marketplace, delivery, booking and commerce. Arabic-first and RTL by default.">
+<meta name="description" content="Hussein Abozina, AI-native Mobile Software Engineer (Flutter, iOS, Android). Spec-driven, context-engineered workflows with Claude Code, Codex, Cursor and ZCode. 5 years with Flutter, 20+ apps across marketplace, delivery, booking and commerce. Arabic-first and RTL by default.">
 <meta property="og:title" content="Hussein Abozina · Mobile Software Engineer">
 <meta property="og:description" content="AI-native mobile engineering with Flutter, SwiftUI and Jetpack Compose. Production apps from first screen to App Store and Google Play release.">
 <meta property="og:type" content="website">
@@ -224,6 +224,22 @@ section{position:relative}
 @media (max-width:1020px){.ai-grid{grid-template-columns:1fr}.term{position:relative;top:auto}}
 @media (max-width:420px){.pillar{grid-template-columns:1fr;gap:6px;padding:22px}.term-body li{grid-template-columns:1fr}.term-body em{grid-column:1}}
 
+.agents{margin-top:56px}
+.agents-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:20px}
+.agents-head h3{font-size:clamp(24px,2.6vw,32px);font-variation-settings:"wdth" 88;max-width:22ch}
+.agents-head p{color:var(--dim);max-width:46ch;font-size:15.5px}
+.agent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.agent{position:relative;padding:22px 22px 24px;border:1px solid var(--line);border-radius:var(--r);background:linear-gradient(180deg,var(--glass),rgba(18,21,27,.5));overflow:hidden;transition:border-color .3s,transform .4s cubic-bezier(.2,.8,.2,1)}
+.agent::after{content:"";position:absolute;inset:auto -30% -60% auto;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(242,169,59,.16),transparent 70%);opacity:0;transition:opacity .4s}
+.agent:hover{border-color:rgba(242,169,59,.45);transform:translateY(-3px)}
+.agent:hover::after{opacity:1}
+.agent .kind{display:block;color:var(--dim);font-size:11px;letter-spacing:.05em;margin-bottom:14px}
+.agent h4{font-family:var(--display);font-size:28px;font-weight:700;font-variation-settings:"wdth" 85;line-height:1;margin-bottom:16px}
+.agent ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.agent li{font-family:var(--mono);font-size:12px;padding:5px 9px;border-radius:8px;border:1px solid rgba(242,169,59,.28);color:#f6c77e;background:rgba(242,169,59,.06)}
+@media (max-width:1020px){.agent-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:420px){.agent-grid{grid-template-columns:1fr}}
+
 /* experience */
 .xp{display:grid;gap:0;border-top:1px solid var(--line)}
 .job{display:grid;grid-template-columns:200px 1fr;gap:30px;padding:40px 0;border-bottom:1px solid var(--line)}
@@ -381,7 +397,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
           <span class="line"><span>from first screen</span></span>
           <span class="line"><span>to <em>store release.</em></span></span>
         </h1>
-        <p class="lede">I'm Hussein, a mobile engineer with five years in Flutter and 2+ years shipping client apps at <strong>Efadah Software</strong>, across marketplaces, delivery, booking and commerce. I own a feature from architecture to App Store and Google Play review, go native with <strong>SwiftUI</strong> and <strong>Jetpack Compose</strong> when the product calls for it, and build <strong>Arabic-first and RTL</strong> by default. I work <strong>AI-native</strong>: specs first, engineered context, agents for speed, and review gates before anything ships.</p>
+        <p class="lede">I'm Hussein, a mobile engineer with five years in Flutter and 2+ years shipping client apps at <strong>Efadah Software</strong>, across marketplaces, delivery, booking and commerce. I own a feature from architecture to App Store and Google Play review, go native with <strong>SwiftUI</strong> and <strong>Jetpack Compose</strong> when the product calls for it, and build <strong>Arabic-first and RTL</strong> by default. I work <strong>AI-native</strong> with <strong>Claude Code, Codex, Cursor and ZCode</strong>: specs first, engineered context, agents for speed, and review gates before anything ships.</p>
         <div class="ctas">
           <a class="btn btn-solid magnet" href="#work">See selected work
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></svg></a>
@@ -430,7 +446,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <div><dt class="mono">Product domains</dt><dd>Marketplace, delivery, booking, commerce, events, beauty services, finance, healthcare</dd></div>
       <div><dt class="mono">Core stack</dt><dd>Flutter · Dart · BLoC/Cubit · Clean Architecture · REST · Firebase · Supabase</dd></div>
       <div><dt class="mono">Owns end to end</dt><dd>Payments, maps and GPS, FCM notifications, realtime chat, signing and store releases</dd></div>
-      <div><dt class="mono">AI workflow</dt><dd><b>Spec-driven development</b>, context engineering, AI coding agents with review and verification gates</dd></div>
+      <div><dt class="mono">AI workflow</dt><dd><b>Claude Code · Codex · Cursor · ZCode</b><br>Spec-driven, context-engineered, review-gated</dd></div>
       <div><dt class="mono">Languages</dt><dd><b>Arabic</b> native · <b>English</b> professional working proficiency</dd></div>
       <div><dt class="mono">Education</dt><dd><b>BSc Computer Science</b><br>Mansoura University, 2019–2022</dd></div>
     </dl>
@@ -597,6 +613,19 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
         <figcaption>Example workflow for one feature</figcaption>
       </figure>
     </div>
+
+    <div class="agents">
+      <div class="agents-head rv">
+        <h3>The agents I run, and the models behind them</h3>
+        <p>I pick the agent and model per task: long refactors, quick UI iterations, test generation or code review.</p>
+      </div>
+      <div class="agent-grid">
+        <article class="agent rv"><span class="kind mono">Terminal agent · Anthropic</span><h4>Claude Code</h4><ul><li>Claude Opus</li><li>Claude Sonnet</li></ul></article>
+        <article class="agent rv" style="--d:.06s"><span class="kind mono">CLI + cloud agent · OpenAI</span><h4>Codex</h4><ul><li>GPT Codex models</li></ul></article>
+        <article class="agent rv" style="--d:.12s"><span class="kind mono">AI-native editor · Anysphere</span><h4>Cursor</h4><ul><li>Composer</li><li>Frontier models</li></ul></article>
+        <article class="agent rv" style="--d:.18s"><span class="kind mono">Agentic dev environment · Z.ai</span><h4>ZCode</h4><ul><li>GLM models</li></ul></article>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -680,7 +709,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <div class="skill rv" style="--d:.12s"><h4>Data &amp; APIs</h4><ul><li>REST · Dio · Retrofit</li><li>Firebase · Supabase</li><li>Hive · SQLite</li><li>Auth flows</li></ul></div>
       <div class="skill rv" style="--d:.18s"><h4>Integrations</h4><ul><li>Payment gateways</li><li>Google Maps · GPS</li><li>Push notifications (FCM)</li><li>Realtime chat</li></ul></div>
       <div class="skill rv" style="--d:.24s"><h4>Quality &amp; delivery</h4><ul><li>Unit · widget tests</li><li>CI/CD · Git</li><li>Performance profiling</li><li>App Store · Google Play</li></ul></div>
-      <div class="skill rv" style="--d:.3s"><h4>AI workflow</h4><ul><li>Spec-driven development</li><li>Context engineering</li><li>AI coding agents</li><li>Review · verification gates</li></ul></div>
+      <div class="skill rv" style="--d:.3s"><h4>AI workflow</h4><ul><li>Spec-driven development</li><li>Context engineering</li><li>Claude Code · Codex</li><li>Cursor · ZCode</li><li>Review · verification gates</li></ul></div>
     </div>
   </div>
 </section>
